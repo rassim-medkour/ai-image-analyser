@@ -1,12 +1,14 @@
 from app.schemas.user_login_schema import UserLoginSchema
-from app.services.user_service import UserService
+from backend.app.schemas.user_registration_schema import UserRegistrationSchema
 from marshmallow import ValidationError
+from app.services.user_service import UserService
+from app.schemas.user_schema import UserSchema
 
 def login_user(request_data):
     """
     Controller logic for user login:
     - Validate input using UserLoginSchema
-    - Check user existence and password correctness via UserService
+    - Pass validated data dict to UserService.authenticate_user
     - Return user data or error message
     """
     schema = UserLoginSchema()
@@ -15,14 +17,30 @@ def login_user(request_data):
     except ValidationError as err:
         return {"errors": err.messages}, 400
 
-    user, error = UserService.authenticate_user(
-        validated_data["username_or_email"],
-        validated_data["password"]
-    )
+    user, error = UserService.authenticate_user(validated_data)
     if error:
         return {"errors": error}, 401
 
-    # For now, just return user data (no JWT yet)
-    from app.schemas.user_schema import UserSchema
     user_data = UserSchema().dump(user)
     return user_data, 200
+
+
+def register_user(request_data):
+    """
+    Controller logic for user registration:
+    - Validate input using UserRegistrationSchema
+    - Call UserService.register_user
+    - Return serialized user or error message
+    """
+    schema = UserRegistrationSchema()
+    try:
+        validated_data = schema.load(request_data)
+    except ValidationError as err:
+        return {"errors": err.messages}, 400
+
+    user, error = UserService.register_user(validated_data)
+    if error:
+        return {"errors": error}, 409
+
+    user_data = UserSchema().dump(user)
+    return user_data, 201

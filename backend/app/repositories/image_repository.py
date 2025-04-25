@@ -9,6 +9,10 @@ class ImageRepository:
     def get_by_id(image_id):
         """Fetch an image by primary key."""
         return Image.query.get(image_id)
+    
+    @staticmethod
+    def get_by_id_and_user(image_id, user_id):
+        return Image.query.filter_by(id=image_id, user_id=user_id).first()
 
     @staticmethod
     def list_by_user(user_id):

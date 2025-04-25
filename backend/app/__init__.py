@@ -4,6 +4,7 @@ from .config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 # Extensions (initialized later)
 db = SQLAlchemy()
@@ -18,6 +19,18 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
+
+    # CORS setup: handles all CORS headers, preflight, credentials, and common issues
+    CORS(
+        app,
+        resources={r"/api/*": {"origins": "*"}},  # In production, set to your frontend URL
+        supports_credentials=True,
+        allow_headers=[
+            "Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"
+        ],
+        methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        expose_headers=["Content-Disposition"]  # For file downloads if needed
+    )
 
     # Register blueprints
     from app.routes.auth import auth_bp

@@ -1,6 +1,6 @@
-import apiClient from './client';
-import { AuthResponse, User } from '../types';
-import { AxiosResponse } from 'axios';
+import apiClient from "./client";
+import { AuthResponse, User } from "../types";
+import { AxiosResponse } from "axios";
 
 // Interface for login request data
 interface LoginRequest {
@@ -19,15 +19,23 @@ interface RegisterRequest {
  * Log in a user with username/email and password
  */
 export const login = async (data: LoginRequest): Promise<AuthResponse> => {
-  const response: AxiosResponse<AuthResponse> = await apiClient.post('/auth/login', data);
+  const response: AxiosResponse<AuthResponse> = await apiClient.post(
+    "/auth/login",
+    data
+  );
   return response.data;
 };
 
 /**
  * Register a new user
  */
-export const register = async (data: RegisterRequest): Promise<AuthResponse> => {
-  const response: AxiosResponse<AuthResponse> = await apiClient.post('/auth/register', data);
+export const register = async (
+  data: RegisterRequest
+): Promise<AuthResponse> => {
+  const response: AxiosResponse<AuthResponse> = await apiClient.post(
+    "/auth/register",
+    data
+  );
   return response.data;
 };
 
@@ -35,6 +43,6 @@ export const register = async (data: RegisterRequest): Promise<AuthResponse> => 
  * Get the current user's profile
  */
 export const getCurrentUser = async (): Promise<User> => {
-  const response: AxiosResponse<User> = await apiClient.get('/users/me');
+  const response: AxiosResponse<User> = await apiClient.get("/users/me");
   return response.data;
 };

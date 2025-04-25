@@ -8,9 +8,25 @@ from app.models.user import User
 class UserService:
     @staticmethod
     def register_user(username, email, password):
-        """Register a new user, hash password, and save to DB."""
-        # Business logic: check for existing user, hash password, etc.
-        pass
+        """
+        Register a new user:
+        - Check for existing username/email
+        - Hash password
+        - Save user to DB
+        - Return user or error message
+        """
+
+        # Check if username or email already exists
+        if UserRepository.get_by_username(username):
+            return None, "Username already exists."
+        if UserRepository.get_by_email(email):
+            return None, "Email already exists."
+
+        # Create user and hash password
+        user = User(username=username, email=email)
+        user.set_password(password)
+        UserRepository.create(user)
+        return user, None
 
     @staticmethod
     def authenticate_user(username_or_email, password):

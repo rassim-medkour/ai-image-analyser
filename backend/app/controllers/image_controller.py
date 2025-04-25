@@ -52,3 +52,15 @@ def get_all_images(user_id):
     images = ImageService.list_user_images(user_id)
     image_data = ImageSchema(many=True).dump(images)
     return image_data, 200
+
+
+def delete_image(user_id, image_id):
+    """
+    Controller logic to delete an image for a user.
+    - Calls ImageService.delete_image with user_id and image_id
+    - Returns success message or error
+    """
+    success, error = ImageService.delete_image(user_id, image_id)
+    if not success:
+        return {"errors": error}, 400
+    return {"message": "Image deleted successfully."}, 200

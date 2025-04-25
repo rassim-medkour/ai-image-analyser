@@ -16,11 +16,7 @@ def register_user(request_data):
     except ValidationError as err:
         return {"errors": err.messages}, 400
 
-    user, error = UserService.register_user(
-        validated_data["username"],
-        validated_data["email"],
-        validated_data["password"]
-    )
+    user, error = UserService.register_user(validated_data)
     if error:
         return {"errors": error}, 409
 

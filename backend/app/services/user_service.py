@@ -7,22 +7,24 @@ from app.models.user import User
 
 class UserService:
     @staticmethod
-    def register_user(username, email, password):
+    def register_user(data):
         """
         Register a new user:
+        - Expects a dict of validated data (username, email, password)
         - Check for existing username/email
         - Hash password
         - Save user to DB
         - Return user or error message
         """
+        username = data["username"]
+        email = data["email"]
+        password = data["password"]
 
-        # Check if username or email already exists
         if UserRepository.get_by_username(username):
             return None, "Username already exists."
         if UserRepository.get_by_email(email):
             return None, "Email already exists."
 
-        # Create user and hash password
         user = User(username=username, email=email)
         user.set_password(password)
         UserRepository.create(user)

@@ -1,8 +1,28 @@
-# Handles user-related request logic
-# Called by user routes, delegates to services
+from app.schemas.user_registration_schema import UserRegistrationSchema
+from app.services.user_service import UserService
+from app.schemas.user_schema import UserSchema
+from marshmallow import ValidationError
 
-def get_user_profile(user_id):
-    # Example: Fetch user profile logic
-    pass
+def register_user(request_data):
+    """
+    Controller logic for user registration:
+    - Validate input using UserRegistrationSchema
+    - Call UserService.register_user
+    - Return serialized user or error message
+    """
+    schema = UserRegistrationSchema()
+    try:
+        validated_data = schema.load(request_data)
+    except ValidationError as err:
+        return {"errors": err.messages}, 400
 
-# Add more user controller functions as needed
+    user, error = UserService.register_user(
+        validated_data["username"],
+        validated_data["email"],
+        validated_data["password"]
+    )
+    if error:
+        return {"errors": error}, 409
+
+    user_data = UserSchema().dump(user)
+    return user_data, 201

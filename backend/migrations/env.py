@@ -2,6 +2,8 @@ import logging
 from logging.config import fileConfig
 
 from flask import current_app
+from app.models.user import User
+from app.models.image import Image
 
 from alembic import context
 

@@ -4,6 +4,7 @@ Orchestrates calls to UserRepository and handles validation, password hashing, e
 """
 from app.repositories.user_repository import UserRepository
 from app.models.user import User
+from flask_jwt_extended import create_access_token
 
 class UserService:
     @staticmethod
@@ -14,7 +15,7 @@ class UserService:
         - Check for existing username/email
         - Hash password
         - Save user to DB
-        - Return user or error message
+        - Return a tuple: (user, access_token, error_message)
         """
         username = data["username"]
         email = data["email"]
@@ -28,7 +29,8 @@ class UserService:
         user = User(username=username, email=email)
         user.set_password(password)
         UserRepository.create(user)
-        return user, None
+        access_token = create_access_token(identity=user.id)
+        return user, access_token, None 
 
     @staticmethod
     def authenticate_user(data):
@@ -37,7 +39,7 @@ class UserService:
         - Expects a dict with 'username_or_email' and 'password'.
         - Determines if input is email or username.
         - Looks up user accordingly and checks password.
-        - Returns (user, None) if successful, (None, error) otherwise.
+        - Returns (user, access_token, None) if successful, (None, None, error) otherwise.
         """
         username_or_email = data["username_or_email"]
         password = data["password"]
@@ -48,8 +50,9 @@ class UserService:
             user = UserRepository.get_by_username(username_or_email)
 
         if not user or not user.check_password(password):
-            return None, "Invalid credentials."
-        return user, None
+            return None, None, "Invalid credentials."
+        access_token = create_access_token(identity=user.id)
+        return user, access_token, None
 
     @staticmethod
     def get_user_profile(user_id):

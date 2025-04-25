@@ -9,7 +9,7 @@ def login_user(request_data):
     Controller logic for user login:
     - Validate input using UserLoginSchema
     - Pass validated data dict to UserService.authenticate_user
-    - Return user data or error message
+    - Return user data and JWT or error message
     """
     schema = UserLoginSchema()
     try:
@@ -17,12 +17,12 @@ def login_user(request_data):
     except ValidationError as err:
         return {"errors": err.messages}, 400
 
-    user, error = UserService.authenticate_user(validated_data)
+    user, access_token, error = UserService.authenticate_user(validated_data)
     if error:
         return {"errors": error}, 401
 
     user_data = UserSchema().dump(user)
-    return user_data, 200
+    return {"user": user_data, "access_token": access_token}, 200
 
 
 def register_user(request_data):
@@ -38,9 +38,9 @@ def register_user(request_data):
     except ValidationError as err:
         return {"errors": err.messages}, 400
 
-    user, error = UserService.register_user(validated_data)
+    user, access_token, error = UserService.register_user(validated_data)
     if error:
         return {"errors": error}, 409
 
     user_data = UserSchema().dump(user)
-    return user_data, 201
+    return {"user": user_data, "access_token": access_token}, 201

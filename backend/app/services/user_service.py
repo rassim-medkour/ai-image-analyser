@@ -31,10 +31,25 @@ class UserService:
         return user, None
 
     @staticmethod
-    def authenticate_user(username_or_email, password):
-        """Authenticate user by username/email and password."""
-        # Business logic: fetch user, check password, return user or None
-        pass
+    def authenticate_user(data):
+        """
+        Authenticate user by username/email and password.
+        - Expects a dict with 'username_or_email' and 'password'.
+        - Determines if input is email or username.
+        - Looks up user accordingly and checks password.
+        - Returns (user, None) if successful, (None, error) otherwise.
+        """
+        username_or_email = data["username_or_email"]
+        password = data["password"]
+
+        if "@" in username_or_email:
+            user = UserRepository.get_by_email(username_or_email)
+        else:
+            user = UserRepository.get_by_username(username_or_email)
+
+        if not user or not user.check_password(password):
+            return None, "Invalid credentials."
+        return user, None
 
     @staticmethod
     def get_user_profile(user_id):

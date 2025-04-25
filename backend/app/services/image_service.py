@@ -4,6 +4,9 @@ Orchestrates calls to ImageRepository and handles S3/R2 integration, validation,
 """
 from app.utils.s3_helper import S3Helper
 from flask import current_app
+from app.repositories.image_repository import ImageRepository
+from app.models.image import Image
+from app.repositories.image_repository import ImageRepository
 
 class ImageService:
     @staticmethod
@@ -26,8 +29,6 @@ class ImageService:
         except Exception as e:
             return None, f"Image upload failed: {str(e)}"
 
-        from app.models.image import Image
-        from app.repositories.image_repository import ImageRepository
         file_obj.seek(0, 2)  # Move to end to get size
         file_size = file_obj.tell()
         file_obj.seek(0)
@@ -52,7 +53,6 @@ class ImageService:
         - Checks ownership before deletion.
         Returns: (True, None) on success, (False, error message) on failure
         """
-        from app.repositories.image_repository import ImageRepository
         image = ImageRepository.get_by_id(image_id)
         if not image:
             return False, "Image not found."
@@ -72,6 +72,6 @@ class ImageService:
         return ImageRepository.list_by_user(user_id)
 
     @staticmethod
-    def get_image(image_id):
-        """Get image metadata by ID."""
-        return ImageRepository.get_by_id(image_id)
+    def get_image(user_id, image_id):
+        """Get image metadata by ID and User ID."""
+        return ImageRepository.get_by_id_and_user(image_id, user_id)

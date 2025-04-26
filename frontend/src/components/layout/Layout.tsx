@@ -1,16 +1,12 @@
-import { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-
-interface LayoutProps {
-    children: ReactNode;
-}
 
 /**
  * Main layout component that wraps the app content
  * Provides consistent header and footer across all pages
  */
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC = () => {
     // Calculate necessary spacing to account for fixed header
     const mainStyle: React.CSSProperties = {
         marginTop: '4rem', // Space for fixed header
@@ -22,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <Header />
             <main className="container" style={mainStyle}>
-                {children}
+                <Outlet />
             </main>
             <Footer />
         </div>

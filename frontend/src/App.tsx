@@ -10,9 +10,9 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            {/* Public routes */}
+        <Routes>
+          {/* Public routes */}
+          <Route element={<Layout />}>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -26,8 +26,8 @@ function App() {
 
             {/* Catch all route */}
             <Route path="*" element={<div>404 - Not Found</div>} />
-          </Routes>
-        </Layout>
+          </Route>
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );

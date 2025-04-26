@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './store/auth/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
 import './App.css';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/login" element={<div>Login Page (to be implemented)</div>} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           {/* Protected routes */}

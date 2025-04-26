@@ -53,3 +53,30 @@ main {
   margin: 0 auto;
   max-width: 28rem;
 }
+
+input,
+textarea,
+select {
+  border-color: var(--pico-border-color, #ced4da);
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: #e53935 !important;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.1);
+}
+
+input:placeholder-shown:not([aria-invalid="true"]),
+textarea:placeholder-shown:not([aria-invalid="true"]),
+select:placeholder-shown:not([aria-invalid="true"]) {
+  border-color: var(--pico-border-color, #ced4da) !important;
+  box-shadow: none !important;
+}
+
+input:not(:placeholder-shown):not([aria-invalid="true"]):valid,
+textarea:not(:placeholder-shown):not([aria-invalid="true"]):valid,
+select:not(:placeholder-shown):not([aria-invalid="true"]):valid {
+  border-color: #4caf50 !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}

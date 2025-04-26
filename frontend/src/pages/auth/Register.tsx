@@ -18,6 +18,7 @@ const Register = () => {
     // Initialize form with Zod resolver
     const form = useForm<RegisterFormInputs>({
         resolver: zodResolver(registerSchema),
+        mode: 'onChange',
         defaultValues: {
             username: '',
             email: '',

@@ -1,10 +1,8 @@
-// Base interfaces for our application entities
-
 export interface User {
   id: number;
   username: string;
   email: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface Image {
@@ -20,7 +18,6 @@ export interface Image {
   user_id: number;
 }
 
-// API response interfaces
 export interface AuthResponse {
   user: User;
   access_token: string;

@@ -33,11 +33,10 @@ const Login = () => {
         if (isAuthenticated) {
             navigate(from, { replace: true });
         }
-        return () => {
-            // Clear any auth errors when component unmounts
-            clearErrors();
-        };
-    }, [isAuthenticated, navigate, from, clearErrors]);
+        // Only clear errors on unmount
+
+        return () => { clearErrors(); };
+    }, [isAuthenticated, navigate, from]);
 
     const handleSubmit = async (data: LoginFormInputs) => {
         setSubmitting(true);

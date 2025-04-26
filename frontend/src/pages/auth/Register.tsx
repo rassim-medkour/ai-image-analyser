@@ -31,11 +31,10 @@ const Register = () => {
         if (isAuthenticated) {
             navigate('/dashboard');
         }
-        return () => {
-            // Clear any auth errors when component unmounts
-            clearErrors();
-        };
-    }, [isAuthenticated, navigate, clearErrors]);
+        // Only clear errors on unmount
+
+        return () => { clearErrors(); };
+    }, [isAuthenticated, navigate]);
 
     const handleSubmit = async (data: RegisterFormInputs) => {
         setSubmitting(true);

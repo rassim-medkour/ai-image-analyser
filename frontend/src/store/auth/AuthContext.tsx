@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useReducer, ReactNode, useEffect, useCallback } from 'react';
 import { AuthState, AuthContextType } from './authTypes';
 import * as authApi from '../../api/auth';
 
@@ -107,8 +107,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [state.token]);
 
-    // Login functionality
-    const login = async (username_or_email: string, password: string): Promise<boolean> => {
+    // Memoized login
+    const login = useCallback(async (username_or_email: string, password: string): Promise<boolean> => {
         try {
             dispatch({ type: 'LOGIN_REQUEST' });
             const response = await authApi.login({ username_or_email, password });
@@ -126,10 +126,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             });
             return false;
         }
-    };
+    }, []);
 
-    // Register functionality
-    const register = async (username: string, email: string, password: string): Promise<boolean> => {
+    // Memoized register
+    const register = useCallback(async (username: string, email: string, password: string): Promise<boolean> => {
         try {
             dispatch({ type: 'REGISTER_REQUEST' });
             const response = await authApi.register({ username, email, password });
@@ -147,17 +147,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             });
             return false;
         }
-    };
+    }, []);
 
-    // Logout functionality
-    const logout = () => {
+    // Memoized logout
+    const logout = useCallback(() => {
         dispatch({ type: 'LOGOUT' });
-    };
+    }, []);
 
-    // Clear errors
-    const clearErrors = () => {
+    // Memoized clearErrors
+    const clearErrors = useCallback(() => {
         dispatch({ type: 'CLEAR_ERRORS' });
-    };
+    }, []);
 
     // Create value object with state and functions
     const authContextValue: AuthContextType = {

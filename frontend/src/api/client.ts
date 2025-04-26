@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import axios, { AxiosInstance } from "axios";
 
 // Base API URL from environment or default
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1";
@@ -23,20 +23,33 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for error handling
-apiClient.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config;
+function isAuthPage() {
+  const path = window.location.pathname;
+  return path === "/login" || path === "/register";
+}
 
-    // Handle 401 Unauthorized errors (token expired)
-    if (error.response?.status === 401 && originalRequest) {
-      // You could implement token refresh logic here if needed
-      // For now just logout the user
+function isAuthApiRequest(config: any) {
+  // Prevent redirect for login/register API calls
+  return (
+    config.url?.includes("/auth/login") ||
+    config.url?.includes("/auth/register")
+  );
+}
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (
+      error.response?.status === 401 &&
+      !isAuthPage() &&
+      !isAuthApiRequest(originalRequest)
+    ) {
       localStorage.removeItem("token");
+      // In a React SPA, you would use navigate('/login') from a context or event bus
+      // Here, fallback to full reload for robustness
       window.location.href = "/login";
     }
-
     return Promise.reject(error);
   }
 );

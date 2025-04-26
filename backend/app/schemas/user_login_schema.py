@@ -7,7 +7,7 @@ class UserLoginSchema(Schema):
     password = fields.Str(required=True)
 
     @validates("username_or_email")
-    def validate_username_or_email(self, value):
+    def validate_username_or_email(self, value, **kwargs):
         if "@" in value:
             # Validate as email
             email_validator = validate.Email(error="Invalid email format.")

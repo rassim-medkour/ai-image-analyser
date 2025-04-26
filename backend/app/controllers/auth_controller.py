@@ -1,5 +1,5 @@
 from app.schemas.user_login_schema import UserLoginSchema
-from backend.app.schemas.user_registration_schema import UserRegistrationSchema
+from app.schemas.user_registration_schema import UserRegistrationSchema
 from marshmallow import ValidationError
 from app.services.user_service import UserService
 from app.schemas.user_schema import UserSchema

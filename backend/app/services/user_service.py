@@ -29,7 +29,7 @@ class UserService:
         user = User(username=username, email=email)
         user.set_password(password)
         UserRepository.create(user)
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         return user, access_token, None 
 
     @staticmethod
@@ -51,7 +51,7 @@ class UserService:
 
         if not user or not user.check_password(password):
             return None, None, "Invalid credentials."
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         return user, access_token, None
 
     @staticmethod

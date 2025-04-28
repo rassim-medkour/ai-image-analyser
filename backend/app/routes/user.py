@@ -10,7 +10,7 @@ user_bp = Blueprint("user", __name__)
 @user_bp.route('/me', methods=['GET'])
 @jwt_required()
 def get_my_profile():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = UserService.get_user_profile(user_id)
     if not user:
         return jsonify({"errors": "User not found."}), 404

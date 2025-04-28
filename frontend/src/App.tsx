@@ -4,6 +4,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Layout from './components/layout/Layout';
+import UploadImage from './pages/images/UploadImage';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<div>Dashboard (to be implemented)</div>} />
               <Route path="/images" element={<div>Images Page (to be implemented)</div>} />
+              <Route path="/images/upload" element={<UploadImage />} />
               <Route path="/profile" element={<div>Profile Page (to be implemented)</div>} />
             </Route>
 

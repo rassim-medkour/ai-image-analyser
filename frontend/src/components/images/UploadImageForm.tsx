@@ -2,8 +2,6 @@ import { UseFormReturn } from 'react-hook-form';
 
 export interface UploadImageFormInputs {
   file: FileList;
-  title?: string;
-  description?: string;
 }
 
 interface UploadImageFormProps {
@@ -21,7 +19,7 @@ const UploadImageForm: React.FC<UploadImageFormProps> = ({ form, onSubmit, isSub
       <div>
         <hgroup>
           <h1>Upload Image</h1>
-          <h2>Select an image and add details</h2>
+          <h2>Select an image to upload</h2>
         </hgroup>
         {error && (
           <div className="error">
@@ -41,27 +39,6 @@ const UploadImageForm: React.FC<UploadImageFormProps> = ({ form, onSubmit, isSub
             />
           </label>
           {errors.file && <small className="text-error">{errors.file.message as string}</small>}
-
-          <label htmlFor="title">
-            Title (optional)
-            <input
-              type="text"
-              id="title"
-              placeholder="Image title"
-              {...register('title')}
-              disabled={isSubmitting}
-            />
-          </label>
-
-          <label htmlFor="description">
-            Description (optional)
-            <textarea
-              id="description"
-              placeholder="Describe your image"
-              {...register('description')}
-              disabled={isSubmitting}
-            />
-          </label>
 
           <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
             {isSubmitting ? 'Uploading...' : 'Upload Image'}

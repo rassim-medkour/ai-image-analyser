@@ -18,8 +18,6 @@ const UploadImage = () => {
     mode: 'onChange',
     defaultValues: {
       file: undefined,
-      title: '',
-      description: '',
     },
   });
 
@@ -33,10 +31,7 @@ const UploadImage = () => {
         setSubmitting(false);
         return;
       }
-      await uploadImage(file, {
-        title: data.title || '',
-        description: data.description || '',
-      });
+      await uploadImage(file);
       navigate('/images');
     } catch (err: any) {
       setError(err?.response?.data?.errors || 'Image upload failed.');

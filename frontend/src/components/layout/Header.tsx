@@ -49,7 +49,7 @@ const Header = () => {
                 </div>
 
                 {/* Mobile toggle */}
-                <details className="md-hidden" open={menuOpen} 
+                <details className="md-hidden" open={menuOpen}
                     onToggle={() => setMenuOpen(!menuOpen)}>
                     <summary aria-haspopup="listbox" role="button">
                         Menu
@@ -74,29 +74,29 @@ const Header = () => {
 
                 {/* Desktop menu */}
                 <ul className="sm-hidden" style={{ display: 'flex', gap: '1rem', margin: 0, padding: 0, listStyle: 'none' }}>
-                  {isAuthenticated ? (
-                    <>
-                      <li><Link to="/dashboard">Dashboard</Link></li>
-                      <li><Link to="/images">Images</Link></li>
-                      <li><Link to="/images/upload">Upload Image</Link></li>
-                      <li>
-                        <details role="list">
-                          <summary aria-haspopup="listbox" role="button">
-                            {user?.username || 'Account'}
-                          </summary>
-                          <ul role="listbox">
-                            <li><Link to="/profile">Profile</Link></li>
-                            <li><a href="#" onClick={handleLogout}>Logout</a></li>
-                          </ul>
-                        </details>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li><Link to="/login">Login</Link></li>
-                      <li><Link to="/register" className="button">Register</Link></li>
-                    </>
-                  )}
+                    {isAuthenticated ? (
+                        <>
+                            <li><Link to="/dashboard">Dashboard</Link></li>
+                            <li><Link to="/images">Images</Link></li>
+                            <li><Link to="/images/upload">Upload Image</Link></li>
+                            <li>
+                                <details role="list">
+                                    <summary aria-haspopup="listbox" role="button">
+                                        {user?.username || 'Account'}
+                                    </summary>
+                                    <ul role="listbox">
+                                        <li><Link to="/profile">Profile</Link></li>
+                                        <li><a href="#" onClick={handleLogout}>Logout</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                        </>
+                    ) : (
+                        <>
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/register" className="button">Register</Link></li>
+                        </>
+                    )}
                 </ul>
             </div>
         </header>

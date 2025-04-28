@@ -9,47 +9,47 @@ import { uploadImage } from '../../api/images';
 type UploadImageSchemaType = z.infer<typeof uploadImageSchema>;
 
 const UploadImage = () => {
-  const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
+    const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
+    const [submitting, setSubmitting] = useState(false);
 
-  const form = useForm<UploadImageFormInputs>({
-    resolver: zodResolver(uploadImageSchema),
-    mode: 'onChange',
-    defaultValues: {
-      file: undefined,
-    },
-  });
+    const form = useForm<UploadImageFormInputs>({
+        resolver: zodResolver(uploadImageSchema),
+        mode: 'onChange',
+        defaultValues: {
+            file: undefined,
+        },
+    });
 
-  const handleSubmit = async (data: UploadImageFormInputs) => {
-    setError(null);
-    setSubmitting(true);
-    try {
-      const file = data.file && data.file[0];
-      if (!file) {
-        setError('Please select an image file.');
-        setSubmitting(false);
-        return;
-      }
-      await uploadImage(file);
-      navigate('/images');
-    } catch (err: any) {
-      setError(err?.response?.data?.errors || 'Image upload failed.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    const handleSubmit = async (data: UploadImageFormInputs) => {
+        setError(null);
+        setSubmitting(true);
+        try {
+            const file = data.file && data.file[0];
+            if (!file) {
+                setError('Please select an image file.');
+                setSubmitting(false);
+                return;
+            }
+            await uploadImage(file);
+            navigate('/images');
+        } catch (err: any) {
+            setError(err?.response?.data?.errors || 'Image upload failed.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
-  return (
-    <div className="container auth-container">
-      <UploadImageForm
-        form={form}
-        onSubmit={handleSubmit}
-        isSubmitting={submitting}
-        error={error}
-      />
-    </div>
-  );
+    return (
+        <div className="container auth-container">
+            <UploadImageForm
+                form={form}
+                onSubmit={handleSubmit}
+                isSubmitting={submitting}
+                error={error}
+            />
+        </div>
+    );
 };
 
 export default UploadImage;

@@ -4,13 +4,21 @@ from flask import current_app
 
 class S3Helper:
     def __init__(self):
-        self.s3_client = boto3.client(
-            's3',
-            aws_access_key_id=current_app.config['S3_ACCESS_KEY'],
-            aws_secret_access_key=current_app.config['S3_SECRET_KEY'],
-            region_name=current_app.config['S3_REGION','auto'],
-            endpoint_url=current_app.config.get('S3_ENDPOINT_URL')
-        )
+        # Safely get configuration values with string defaults
+        region = current_app.config.get('S3_REGION')
+        endpoint = current_app.config.get('S3_ENDPOINT_URL')
+        
+        # Build boto3 client configuration
+        client_kwargs = {
+            'aws_access_key_id': current_app.config['S3_ACCESS_KEY'],
+            'aws_secret_access_key': current_app.config['S3_SECRET_KEY']
+        }
+        # Only add optional parameters if they exist
+        if region:
+            client_kwargs['region_name'] = region
+        if endpoint:
+            client_kwargs['endpoint_url'] = endpoint
+        self.s3_client = boto3.client('s3', **client_kwargs)
         self.bucket = current_app.config['S3_BUCKET_NAME']
 
     def upload_file(self, file_obj, key, content_type):

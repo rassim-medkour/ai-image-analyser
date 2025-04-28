@@ -3,10 +3,10 @@ ImageService: Contains business logic for image operations.
 Orchestrates calls to ImageRepository and handles S3/R2 integration, validation, etc.
 """
 from app.utils.s3_helper import S3Helper
-from flask import current_app
 from app.repositories.image_repository import ImageRepository
 from app.models.image import Image
-from app.repositories.image_repository import ImageRepository
+import uuid
+import time
 
 class ImageService:
     @staticmethod
@@ -21,17 +21,17 @@ class ImageService:
         Returns: (Image instance, error message or None)
         """
         # Generate a unique S3 key (e.g., user_id/timestamp/filename)
-        import uuid, time
         s3_key = f"{user_id}/{int(time.time())}_{uuid.uuid4().hex}_{original_filename}"
+        # Get file size first
+        file_obj.seek(0, 2)  # Move to end to get size
+        file_size = file_obj.tell()
+        file_obj.seek(0)  # Reset to beginning of file
         s3_helper = S3Helper()
         try:
             s3_url = s3_helper.upload_file(file_obj, s3_key, content_type)
         except Exception as e:
             return None, f"Image upload failed: {str(e)}"
 
-        file_obj.seek(0, 2)  # Move to end to get size
-        file_size = file_obj.tell()
-        file_obj.seek(0)
         image = Image(
             filename=s3_key,
             original_filename=original_filename,

@@ -5,7 +5,7 @@ interface ImageCardProps {
     image: Image;
 }
 
-const CARD_SIZE = 240;
+const CARD_SIZE = 500;
 
 const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
     const [showModal, setShowModal] = useState(false);
@@ -86,7 +86,10 @@ const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
                         justifyContent: "center",
                         zIndex: 2000,
                     }}
-                    onClick={() => setShowModal(false)}
+                    onMouseDown={e => {
+                        // Only close if the click is on the backdrop, not the image
+                        if (e.target === e.currentTarget) setShowModal(false);
+                    }}
                 >
                     <img
                         src={image.s3_url}
@@ -98,6 +101,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
                             boxShadow: "0 4px 24px #0008",
                             background: "#fff",
                         }}
+                        onMouseDown={e => e.stopPropagation()}
                     />
                 </div>
             )}

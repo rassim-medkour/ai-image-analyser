@@ -6,7 +6,6 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(255), nullable=False)
     original_filename = db.Column(db.String(255), nullable=False)
-    s3_url = db.Column(db.String(512), nullable=False)
     s3_key = db.Column(db.String(512), nullable=False)
     upload_date = db.Column(db.DateTime, default=datetime.utcnow)
     file_size = db.Column(db.Integer)

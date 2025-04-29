@@ -35,7 +35,6 @@ class ImageService:
         image = Image(
             filename=s3_key,
             original_filename=original_filename,
-            s3_url=s3_url,
             s3_key=s3_key,
             upload_date=None,  # Let DB default handle
             file_size=file_size,

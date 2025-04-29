@@ -6,7 +6,7 @@ import { AxiosResponse } from "axios";
  * Get all images for the current user
  */
 export const getUserImages = async (): Promise<Image[]> => {
-  const response: AxiosResponse<Image[]> = await apiClient.get("/images");
+  const response: AxiosResponse<Image[]> = await apiClient.get("/images/");
   return response.data;
 };
 

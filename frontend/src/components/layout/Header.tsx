@@ -18,10 +18,10 @@ const Header = () => {
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             // Only close if dropdown is open and click is outside both dropdown and button
-            if (menuOpen && 
-                dropdownRef.current && 
-                buttonRef.current && 
-                !dropdownRef.current.contains(event.target as Node) && 
+            if (menuOpen &&
+                dropdownRef.current &&
+                buttonRef.current &&
+                !dropdownRef.current.contains(event.target as Node) &&
                 !buttonRef.current.contains(event.target as Node)) {
                 setMenuOpen(false);
             }
@@ -29,7 +29,7 @@ const Header = () => {
 
         // Add click handler to document
         document.addEventListener('mousedown', handleClickOutside);
-        
+
         // Cleanup
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -110,7 +110,7 @@ const Header = () => {
                                     <span className="navbar-caret" aria-hidden="true">▼</span>
                                 </button>
                                 {menuOpen && (
-                                    <div 
+                                    <div
                                         className="navbar-dropdown-menu"
                                         ref={dropdownRef}
                                     >
@@ -122,9 +122,9 @@ const Header = () => {
                                         </Link>
                                         <a
                                             href="#"
-                                            onClick={(e) => { 
+                                            onClick={(e) => {
                                                 e.preventDefault();
-                                                handleLogout(e); 
+                                                handleLogout(e);
                                             }}
                                             className="navbar-link"
                                         >

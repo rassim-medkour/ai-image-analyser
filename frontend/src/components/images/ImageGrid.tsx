@@ -12,7 +12,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
             className="image-grid"
             style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
                 gap: "1.5rem",
                 marginTop: "2rem"
             }}

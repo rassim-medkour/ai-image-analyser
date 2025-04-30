@@ -110,14 +110,12 @@ header ul.navbar-dropdown {
   padding: 0;
 }
 
-/* Dropdown nav (column layout) */
 .navbar-dropdown {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-/* Inline details for desktop dropdown */
 .navbar-list details {
   display: inline-block;
 }
@@ -126,7 +124,6 @@ header ul.navbar-dropdown {
   cursor: pointer;
 }
 
-/* Unified navbar-link styles */
 .navbar-link {
   display: inline-flex;
   padding: 0.5rem 1.1rem;
@@ -175,7 +172,6 @@ header ul.navbar-dropdown {
   color: #fff;
 }
 
-/* Dropdown menu styles */
 .navbar-dropdown-menu {
   position: absolute;
   top: 110%;

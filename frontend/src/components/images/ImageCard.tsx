@@ -5,8 +5,6 @@ interface ImageCardProps {
     image: Image;
 }
 
-const CARD_SIZE = 500;
-
 const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
     const [showModal, setShowModal] = useState(false);
 
@@ -14,8 +12,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
         <div
             className="image-card"
             style={{
-                width: CARD_SIZE,
-                minHeight: CARD_SIZE + 60,
+                width: "100%",
                 boxShadow: "0 2px 8px #0001",
                 borderRadius: 10,
                 background: "#fff",
@@ -32,8 +29,8 @@ const ImageCard: React.FC<ImageCardProps> = ({ image }) => {
                 src={image.s3_url}
                 alt={image.original_filename}
                 style={{
-                    width: CARD_SIZE - 20,
-                    height: CARD_SIZE - 20,
+                    width: "100%",
+                    aspectRatio: "1 / 1",
                     objectFit: "cover",
                     borderRadius: 8,
                     background: "#f3f3f3",

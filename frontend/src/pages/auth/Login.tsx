@@ -16,8 +16,8 @@ const Login = () => {
     const location = useLocation();
     const [submitting, setSubmitting] = useState(false);
 
-    // Get the return URL from location state or default to dashboard
-    const from = (location.state as { from?: string })?.from || '/dashboard';
+    // Get the return URL from location state or default to images
+    const from = (location.state as { from?: string })?.from || '/images/';
 
     // Initialize form with Zod resolver
     const form = useForm<LoginFormInputs>({

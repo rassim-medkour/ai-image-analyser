@@ -30,7 +30,7 @@ const Register = () => {
     // Redirect if already authenticated
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/dashboard');
+            navigate('/images/');
         }
         // Only clear errors on unmount
 
@@ -42,7 +42,7 @@ const Register = () => {
         try {
             const success = await registerUser(data.username, data.email, data.password);
             if (success) {
-                navigate('/dashboard');
+                navigate('/images/');
             }
         } finally {
             setSubmitting(false);

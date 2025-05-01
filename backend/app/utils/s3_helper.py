@@ -37,6 +37,28 @@ class S3Helper:
             return url
         except ClientError as e:
             raise RuntimeError(f"S3 upload failed: {e}")
+            
+    def get_presigned_url(self, key, expires=3600):
+        """
+        Generate a pre-signed URL for an object with a specified expiration time.
+        
+        Args:
+            key (str): The S3 object key
+            expires (int): Expiration time in seconds (default: 1 hour)
+            
+        Returns:
+            str: Pre-signed URL with expiration
+        """
+        try:
+            url = self.s3_client.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': self.bucket, 'Key': key},
+                ExpiresIn=expires
+            )
+            return url
+        except ClientError as e:
+            current_app.logger.error(f"Failed to generate presigned URL: {str(e)}")
+            return None
 
     def delete_file(self, key):
         try:

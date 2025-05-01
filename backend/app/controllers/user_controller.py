@@ -1,7 +1,5 @@
-from app.schemas.user_registration_schema import UserRegistrationSchema
 from app.schemas.user_schema import UserSchema
 from app.services.user_service import UserService
-from marshmallow import ValidationError
 
 
 def get_user_profile(user_id):

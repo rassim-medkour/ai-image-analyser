@@ -14,10 +14,8 @@ def upload_image(user_id, file_storage, metadata=None):
     # Optionally: validate file type/size here (e.g., check allowed extensions, max size)
     original_filename = file_storage.filename
     content_type = file_storage.mimetype
-    
     # Create an instance of ImageService
     image_service = ImageService()
-    
     image, error = image_service.upload_image(
         user_id=user_id,
         file_obj=file_storage,

@@ -27,7 +27,6 @@ class ImageService:
             self.analysis_service = ImageAnalysisService(provider=analysis_provider)
         else:
             self.analysis_service = analysis_service
-            
         # Use dependency injection for the analysis strategy
         self.analysis_strategy = analysis_strategy or FallbackAnalysisStrategy()
 

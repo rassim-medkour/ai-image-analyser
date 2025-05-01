@@ -36,7 +36,7 @@ class S3Helper:
             )
             return url
         except ClientError as e:
-            raise RuntimeError(f"S3 upload failed: {e}")
+            raise RuntimeError(f"S3 upload failed: {e}") from e
             
     def get_presigned_url(self, key, expires=3600):
         """
@@ -60,8 +60,7 @@ class S3Helper:
             current_app.logger.error(f"Failed to generate presigned URL: {str(e)}")
             return None
 
-    def delete_file(self, key):
         try:
             self.s3_client.delete_object(Bucket=self.bucket, Key=key)
         except ClientError as e:
-            raise RuntimeError(f"S3 delete failed: {e}")
+            raise RuntimeError(f"S3 delete failed: {e}") from e

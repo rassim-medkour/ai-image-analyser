@@ -11,3 +11,5 @@ class Config:
     S3_SECRET_KEY = os.getenv("S3_SECRET_KEY")
     S3_REGION = os.getenv("S3_REGION")
     S3_ENDPOINT_URL = os.getenv("S3_ENDPOINT_URL")
+    CLARIFAI_PAT = os.getenv("CLARIFAI_PAT")
+    CLARIFAI_WORKFLOW_URL = os.getenv("CLARIFAI_WORKFLOW_URL")

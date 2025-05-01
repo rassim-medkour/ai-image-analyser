@@ -1,6 +1,6 @@
 from app.schemas.user_registration_schema import UserRegistrationSchema
-from app.services.user_service import UserService
 from app.schemas.user_schema import UserSchema
+from app.services.user_service import UserService
 from marshmallow import ValidationError
 
 
@@ -18,12 +18,12 @@ def get_user_profile(user_id):
 
 
 """ def list_users():
- """    """
-    #Controller logic to list all users.
-    #- Calls UserService.list_users
-    #- Returns a list of serialized users
-    """
-"""     users = UserService.list_users()
+    \"\"\"
+    Controller logic to list all users.
+    - Calls UserService.list_users
+    - Returns a list of serialized users
+    \"\"\"
+    users = UserService.list_users()
     user_data = UserSchema(many=True).dump(users)
     return user_data, 200 """
 

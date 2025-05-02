@@ -229,7 +229,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Contributors
 
-- [Your Name](https://github.com/yourusername) - Initial work
+- [Rassim Medkour](https://github.com/rassim-medkour) - Initial work
 
 ## 🙏 Acknowledgments
 

@@ -182,19 +182,7 @@ Key design patterns used:
 
 ## 🧪 Testing
 
-### Backend Tests
-
-```bash
-cd backend
-pytest
-```
-
-### Frontend Tests
-
-```bash
-cd frontend
-npm test
-```
+Testing infrastructure is planned but not yet implemented. This section will be updated when tests are added.
 
 ## 🚀 Deployment
 
@@ -217,6 +205,15 @@ npm run build
 ```
 
 The output in the `dist` directory can be served by any static file server.
+
+## 🛣️ Roadmap
+
+- Add comprehensive test coverage for both backend and frontend
+- Implement OpenAPI/Swagger documentation for API endpoints
+- Add containerization for easier deployment
+- Implement server-side caching for API responses
+- Add user roles and permissions system
+- Add error monitoring and structured logging
 
 ## 🤝 Contributing
 
